@@ -1,0 +1,63 @@
+server:
+  port: 3000
+  servlet:
+    session:
+      cookie.name: bfb4c74f0
+
+spring:
+  # redis 설정 - Session 공간 분리
+  data:
+    redis:
+      host: ${redis.host}
+      port: ${redis.port}
+
+  # File Upload 용량 설정
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 60MB
+      fileSizeThreshold: 30MB
+
+  # DB 설정
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${db.host}/postgres
+    username: ${db.username}
+    password: ${db.password}
+
+  # JPA 설정
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddlAuto: ${ddl.auto}
+
+# 로거 설정
+logging:
+  level:
+    org.hibernate.type: trace
+    org.hibernate.orm.jdbc.bind: trace
+
+# File Upload 경로
+file:
+  upload.path: ${file.path}
+  upload.url: ${file.url}
+
+# Swagger API 설정
+springdoc:
+  version: '1.0.0'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /apidocs.html
+    disable-swagger-default-url: true
+    doc-expansion: none
+  paths-to-match:
+    - /api/**
